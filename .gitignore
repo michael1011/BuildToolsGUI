@@ -1,5 +1,7 @@
 .idea
 
+*.glade~
+
 BuildToolsGUI
 BuildToolsGUI.cbp
 
