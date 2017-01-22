@@ -2,6 +2,7 @@
 
 *.glade~
 
+BuildTools
 BuildToolsGUI
 BuildToolsGUI.cbp
 
