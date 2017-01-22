@@ -1,5 +1,11 @@
+.idea
+
+BuildToolsGUI
+BuildToolsGUI.cbp
+
 CMakeCache.txt
 CMakeFiles
+cmake-build-debug
 CMakeScripts
 Makefile
 cmake_install.cmake
