@@ -15,11 +15,14 @@ void build() {
 
     system(stradd(stradd(stradd(stradd(stradd("cd ", buildToolsFolder), " && java -jar "), buildToolsFile), " --rev "), version));
 
+    system(stradd(stradd("mv ", buildToolsFolder), "/craftbukkit* ."));
+    system(stradd(stradd("mv ", buildToolsFolder), "/spigot* ."));
+
     appendOutput("Finished build");
 }
 
 void runBuildTools(char ver[]) {
-    ver[0] = tolower(ver[0]);
+    ver[0] = (char) tolower(ver[0]);
 
     version = ver;
 
