@@ -3,11 +3,14 @@
 #include <string.h>
 #include "main.h"
 #include "download.h"
+#include "build.h"
 
 char name[] = "BuildToolsGUI";
 
 GtkTextBuffer *output;
 GtkTextIter iter;
+
+GtkComboBoxText *version;
 
 char* stradd(const char* a, const char* b) {
     size_t len = strlen(a) + strlen(b);
@@ -27,7 +30,7 @@ static void winClosed() {
 }
 
 static void buildCallBack() {
-    checkIfBuildToolsExists();
+    runBuildTools(gtk_combo_box_text_get_active_text(version));
 }
 
 static void updateCallBack() {
@@ -55,6 +58,8 @@ static void createWin() {
     g_signal_connect(window, "delete_event", G_CALLBACK(winClosed), NULL);
 
     connectButtonListeners(builder);
+
+    version = (GtkComboBoxText *) gtk_builder_get_object(builder, "version");
 
     output = gtk_text_view_get_buffer((GtkTextView *) gtk_builder_get_object(builder, "output"));
 

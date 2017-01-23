@@ -1,7 +1,6 @@
 #include <sys/stat.h>
 #include <zconf.h>
 #include <curl/curl.h>
-#include <slcurses.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include "main.h"
@@ -14,23 +13,7 @@ char buildToolsFile[] = "BuildTools.jar";
 
 char buildToolsUrl[] = "https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar";
 
-bool buildToolsExists() {
-    return access(stradd(stradd(stradd(buildToolsFolder, "/"), buildToolsFile), buildToolsFile), F_OK) != -1;
-}
-
-void checkIfBuildToolsExists() {
-    if (stat(buildToolsFolder, &st) == -1) {
-        mkdir(buildToolsFolder, 0700);
-    }
-
-    if (!buildToolsExists()) {
-        appendOutput(stradd(stradd("'", buildToolsFile), "' not found"));
-
-        downloadBuildTools();
-    }
-}
-
-void *download() {
+void download() {
     appendOutput(stradd("Downloading ", buildToolsFile));
 
     CURL *curl = curl_easy_init();
@@ -47,18 +30,31 @@ void *download() {
     fclose(file);
 
     appendOutput("Finished download");
+}
 
-    return NULL;
+void checkIfBuildToolsExists() {
+    if (stat(buildToolsFolder, &st) == -1) {
+        mkdir(buildToolsFolder, 0700);
+    }
+
+    if (access(stradd(stradd(buildToolsFolder, "/"), buildToolsFile), F_OK) == -1) {
+        appendOutput(stradd(stradd("'", buildToolsFile), "' not found"));
+
+        download();
+    }
 }
 
 void downloadBuildTools() {
-    if (buildToolsExists()) {
+    if (access(stradd(stradd(buildToolsFolder, "/"), buildToolsFile), F_OK) != -1) {
+        appendOutput("Removing old files");
+
         system(stradd("rm -rf ", buildToolsFolder));
-        mkdir(buildToolsFolder, 0700);
     }
+
+    mkdir(buildToolsFolder, 0700);
 
     char ch = '-';
     pthread_t thread;
 
-    pthread_create(&thread, NULL, download, &ch);
+    pthread_create(&thread, NULL, (void *(*)(void *)) download, &ch);
 }

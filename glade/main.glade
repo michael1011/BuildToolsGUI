@@ -41,7 +41,7 @@
                 <property name="can_focus">False</property>
                 <property name="has_entry">True</property>
                 <items>
-                  <item translatable="yes">Latest</item>
+                  <item translatable="no">Latest</item>
                   <item translatable="no">1.11.2</item>
                   <item translatable="no">1.11</item>
                   <item translatable="no">1.10</item>
