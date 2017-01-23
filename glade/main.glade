@@ -42,8 +42,16 @@
                 <property name="has_entry">True</property>
                 <items>
                   <item translatable="yes">Latest</item>
-                  <item translatable="yes">1.11.2</item>
-                  <item translatable="yes">1.11</item>
+                  <item translatable="no">1.11.2</item>
+                  <item translatable="no">1.11</item>
+                  <item translatable="no">1.10</item>
+                  <item translatable="no">1.9.4</item>
+                  <item translatable="no">1.9.2</item>
+                  <item translatable="no">1.9</item>
+                  <item translatable="no">1.8.8</item>
+                  <item translatable="no">1.8.7</item>
+                  <item translatable="no">1.8.3</item>
+                  <item translatable="no">1.8</item>
                 </items>
                 <child internal-child="entry">
                   <object class="GtkEntry">
